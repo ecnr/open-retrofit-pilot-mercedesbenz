@@ -125,47 +125,45 @@ Cruise_ECU will take care of this issue.
 ----
 ## Vss
 
-Eon needs to know how fast we are driving. Therefore we need to add a sensor which measure the "speed" of the car. Most cars already provide such a signal already. For example for the radio. If you have such a signal, you can grab that. In my case I have added a hall sensor to the rotary disc of the speedometer. This counts 4000 signal each km. Cruis_Ecu will calculate that signal with some math. NOTE: you need to adjust the "counts per km" of your specific sensor in Cruise_ECU code.
+Eon needs to know how fast we are driving. Therefore we need to add a sensor which measure the "speed" of the car. Most cars already provide such a signal already. For example for the radio. If you have such a signal, you can grab that. In my case I have added a hall sensor to the rotary disc of the speedometer. This counts 4000 signal each km. MAIN.ino reads that signal and calculate the speed in km/h with some math to send that value to the can bus.
+
+NOTE: you need to adjust the "counts per km" of your specific sensor in MAIN.ino code. (https://github.com/Lukilink/ECU/blob/master/MAIN.ino)
 
 
 ----
 ## Buttons
 
 Since we do not have original toyota buttons, - guess what - we need to build it ourself.
-Be creative, it is simple task. Pull-down buttons, which will be connected to Cruise_ECU.
+Be creative, it is simple task. Pull-down buttons, which will be connected to MAIN.ino ECU.
+MAIN.ino ECU will read the Button State, and send messages to the Can-Bus for: (enable/disable) (set speed up/ set speed down).
 
 ![enter image description here](https://i.imgur.com/V3gqlWY.png)
 
 ![enter image description here](https://i.imgur.com/LdcZqPN.jpg)
 
 ----
-## Cruise_Ecu
+## MAIN ECU
 
-Cruise_ECU Hardware is an [Arduino Uno](https://www.amazon.com/Elegoo-EL-CB-001-ATmega328P-ATMEGA16U2-Arduino/dp/B01EWOE0UU/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno&qid=1560514638&s=gateway&sr=8-2) with a [CAN bus shield](https://www.amazon.com/MakerFocus-CAN-Bus-Shield-V1-2/dp/B06XWQ4WF9/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno%20canbus%20shield&qid=1560514663&s=gateway&sr=8-2) attached to it.
+MAIN ECU Hardware is an [Arduino Uno](https://www.amazon.com/Elegoo-EL-CB-001-ATmega328P-ATMEGA16U2-Arduino/dp/B01EWOE0UU/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno&qid=1560514638&s=gateway&sr=8-2) with a [CAN bus shield]  (MCP2515 EF02037)
+
 ![CRUISE_ECU](https://i.imgur.com/CnysIXP.png)
 
 
 It handles the following functions: 
 
- 1. Cruise_ECU sends some CAN messages on the bus, which let the EPS thinks that it is still in a corolla.
- The EPS is happy and does not go into failsafe. LKAS is ready to take control of it !!! 
+ 1. Cruise_ECU sends some CAN messages on the bus, which needs to be send to enable Openpilot.
  
- 2. Cruise_ECU calculates the current speed by reading the VSS. It sends a 0xb4 and 0xaa message on the CAN-Bus. EON and Throttle_ECU can read and use those messages.
+ 2. Cruise_ECU calculates the current speed by reading the VSS (Vehicle speed sensor). It sends km/h to 0xaa message on the CAN-Bus. EON / Openpilot can read and use this messages.
  
  3. Cruise_ECU digitalReads the buttons and sends the associated CAN messages to the bus. It let's us enable and disable
  Openpilot. We can also increase or decrease the set speed.
  
  5. It provides some safety function. It will disable immediately, if it looses CAN safety checksum.
  
- This is how you wire Cruise_ECU: 
+ This is how you wire Cruise_ECU (Update: that may have changed please take a look in the code) : 
 ![CRUISE_ECU_PINOUT](https://i.imgur.com/9Mnr5qg.jpg)
 
-Note: The LED stuff is optional. "Interrupt to Throttle_ecu" is an extra safety feature, not necessary but recommended.
-
-Attach a switch to the brake pedal and wire it to D7 (button_cancel). Openpilot will disengage when pressing the brake pedal.
-If you have a manual transmition, do the same for clutch pedal.
-
-[Download Cruise ECU Code.](https://github.com/Lukilink/Cruise_ECU)
+[Download Cruise ECU Code.](https://github.com/Lukilink/ECU/blob/master/MAIN.ino)
 
 
 ----
@@ -180,15 +178,11 @@ Fortunatley the sensor provides it's own ECU. Therefor it is like plug and play.
 
 ![enter image description here](https://i.imgur.com/CwXuUUv.jpg)
 	
-The stock Toyota sensor is laggy and not very precise. 
-Zorrobyte has started to build a high precision, fast like hell, sensor.
-It´s cheap and provides a stunning performance. Zorrobyte invented a super clever mounting position. 
-Check out his [Github](https://github.com/zorrobyte/betterToyotaAngleSensorForOP). 
-I will definetely upgrade to zorro_angle_sensor.
+Note: I have mounted the sensor upsidedown. I have compensate that in the openpilot code. 
 
 ---
 
-# THROTTLE
+# THROTTLE / GAS
 
 ## Cruise Control Actuator
 
@@ -202,29 +196,26 @@ If you already have stock cruise control in your car, take that one!
 ## Potentiometer
 
 To measure the position of the throttle we use the stock potentiometer. Almost every throttle has a potentiometer attached.
-We read that amount in Throttle_ECU. 
+We read that amount in GAS.ino (https://github.com/Lukilink/ECU/blob/master/GAS.ino). 
 
-Note: Throttle_ECU sketch must be adjusted for your specific potentiometer. Therefore you need to "measure" the min and max value of your potentiometer with analog_read_to_serial. If you have your min and max values you can set those in Throttle_ECU sketch.
+Note: GAS.ino sketch must be adjusted for your specific potentiometer. Therefore you need to "measure" the min and max value of your potentiometer with analog_read_to_serial. If you have your min and max values you can set those in Throttle_ECU sketch.
 
-## Throttle_ECU
+## GAS_ECU
 
-Throttle ECU hardware is an [Arduino Uno](https://www.amazon.com/Elegoo-EL-CB-001-ATmega328P-ATMEGA16U2-Arduino/dp/B01EWOE0UU/ref=sr_1_3?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno&qid=1560516407&s=gateway&sr=8-3) with a [CAN-bus shield](https://www.amazon.com/MakerFocus-CAN-Bus-Shield-V1-2/dp/B06XWQ4WF9/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno%20canbus%20shield&qid=1560514663&s=gateway&sr=8-2) and a [H-bridge](https://www.amazon.com/CJRSLRB-3Packs-Controller-H-Bridge-Arduino/dp/B07BMTQMKN/ref=sr_1_2_sspa?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=H-bridge&qid=1560516427&s=gateway&sr=8-2-spons&psc=1) attached.
+Throttle ECU hardware is an [Arduino Uno](https://www.amazon.com/Elegoo-EL-CB-001-ATmega328P-ATMEGA16U2-Arduino/dp/B01EWOE0UU/ref=sr_1_3?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno&qid=1560516407&s=gateway&sr=8-3) with a [CAN-bus shield] MCP2515 EF02037 and a [Motor Controler](https://www.robotshop.com/de/de/cytron-10a-dc-motor-treiber-arduino-shield.html?gclid=CjwKCAiAz--OBhBIEiwAG1rIOtq9lzE9XKenDgZFCtUJ_VIgl4X1wVGqAu6yuw4j7MSbVEsXjBfUaRoCnGAQAvD_BwE) attached.
 
-![enter image description here](https://i.imgur.com/EClutor.png)
+![OLD PICTURE](https://i.imgur.com/EClutor.png)
+Note: This is a picture of an old prototype. Not the hardware that ist listet above.
 
 It handles the following functions: 
 
- 1. Throttle_ECU receives the angle_requests from EON and runs the cruise actuator motor and solenoid.
- 
- 2. It calculates the acceleration amount depending on the current speed. That means it accelerates faster when driving fast, and more smooth and carefully when driving slow. 
- 
- 4. It provides some safety function. It will disengage immediately, if it looses CAN-safety messages. 
+- reads gas message 0x200 on can bus (send by Openpilot / Panda)
+- reads potentiometer on Throttel
+- Closes the solenoir and drives the motor (cruise control aktuator) which is attached to throttle.
+- cancels openpilot when human input on gas pedal is detected. 
 
-Download [Throttle_ECU Code](https://github.com/Lukilink/Cruise_ECU).
+Download [gas.ino](https://github.com/Lukilink/ECU/blob/master/GAS.ino).
 
-![Throttle_ECU](https://i.imgur.com/FgJhgx8.png)
-
-![Throttle_ECU_Wiring](https://i.imgur.com/vZJ0PvW.png)
 
 ---
 # RADAR
@@ -242,30 +233,37 @@ Therefore it is pretty easy to install.
 
 ![enter image description here](https://i.imgur.com/qrvZv66.jpg)
 
-You may need to fingerprint after you have installed the radar. 
+Note: It has two can bus. One bus is on the same like all other ECU. The other one has a seperate pin on panda.
+
 
 ---
 
 # BRAKE
 
-Brake is not finished yet. Therefore I will not go to much in detail. 
+We use the same method like on throttle / gas.
+I have attached a cruise control actualtor to the bake pedal. 
+The motor is strong enough to handle a good deceleration but can not do emmergency brake.
+I have attached a brake sensor to measure the pressure of the system as a reference. (simmilar like the poti on throttle)
+ST749 Bremsdrucksensor, 3/8-UNF 100 bar
 
-## POLYSYNC OSCC Brake module and Prius Actuator
+Hardware is exactly the same like Throttle ECU hardware: 
 
-![enter image description here](https://i.imgur.com/fcA75LR.png)
+Brake ECU hardware is an [Arduino Uno](https://www.amazon.com/Elegoo-EL-CB-001-ATmega328P-ATMEGA16U2-Arduino/dp/B01EWOE0UU/ref=sr_1_3?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=arduino%20uno&qid=1560516407&s=gateway&sr=8-3) with a [CAN-bus shield] MCP2515 EF02037 and a [Motor Controler](https://www.robotshop.com/de/de/cytron-10a-dc-motor-treiber-arduino-shield.html?gclid=CjwKCAiAz--OBhBIEiwAG1rIOtq9lzE9XKenDgZFCtUJ_VIgl4X1wVGqAu6yuw4j7MSbVEsXjBfUaRoCnGAQAvD_BwE) attached.
 
-[Polysync /oscc](https://github.com/PolySync/oscc)  build a board with an Arduino mega attached to control a toyota prius ABS actuator. 
+It handles the following functions: 
 
-This actuator will be placed on top of the stock brake system.
+- reads brake message on can bus (send by Openpilot / Panda)
+- reads pressure sensor
+- Closes the solenoir and drives the motor (cruise control aktuator) which is attached to brake pedal.
+- operates brake light (via relai)
+- cancels openpilot when human input on brake pedal is detected. 
 
-To do:  merge / port the OSCC DBC to openpilot
+Download [brake.ino](https://github.com/Lukilink/ECU/blob/master/BRAKE.ino).
 
-[ossc.dbc](https://github.com/PolySync/oscc/blob/master/api/include/can_protocols/oscc.dbc)
 
-I would appreciate if someone could help us with that.
-If you want to know more about that. Feel free to contact us on Github.
 
----
+
+##
 
 # COMMUNITY
 
