@@ -18,7 +18,8 @@ I do hope to cover all possible functions with Comma 3X. At first we will try to
 | Radar sensor				|	   ? USD	|
 | Custom welding			|	 300 USD	|
 | Custom wiring				|	 300 USD	|
-
+|---------------------------------------|-----------------------|
+|Total					|			|
 
 
 🕐🕢⌚ PLANNING 🕰️ AND ⏲️ TIME SCHEDULE ⏰⏳⌛📅📆🗓️ 
