@@ -5,9 +5,13 @@ Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3 Mercedes Benz SLK 200 r170 year 
 
 💵 💴 FINANCIAL BUDGET 💶 DUE DILLIGENCE 💷 💳
 ======
-I do hope to cover all possible functions with Comma 3. At first I will try to focus on financial budget and time schedule estimates, because I assume this side as project is also relevant and many owners will consider return of investments. Obviously many will consider if investing ammount of money which attacks price of the vehickle is worth it with current market prices, if it is better to wait for price drop, or if get newer car with no customization needed is better option.
+I do hope to cover all possible functions with Comma 3. At first we will try to focus on financial budget and time schedule estimates, because we assume this side as project is also relevant and many owners will consider return of investments. Obviously many will consider if investing ammount of money which attacks price of the vehicle is worth it with current market prices, if it is better to wait for price drop and development, or if get newer car with no or very little customization needed is better option.
 
 🕐🕢⌚ PLANNING 🕰️ AND ⏲️ TIME SCHEDULE ⏰⏳⌛📅📆🗓️ 
+======
+If we have reached this section, we have the budget agreement and now we are curious about how long this construction party can last. How fast we can get all parts together, how long time take the manual work itself, what kinds of expertise we are going to need and how long we are going to check the result.
+
+🕺 INTRODUCTION 🕺
 ======
 
 [openpilot](http://github.com/commaai/openpilot) is an open source driving agent. Currently, it performs the functions of Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS).  It's about on par with Tesla Autopilot.
