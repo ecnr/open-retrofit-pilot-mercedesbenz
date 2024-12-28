@@ -1,11 +1,23 @@
 <td><a href="https://m.youtube.com/watch?v=L1u6AkSpR98&t=2s" title="Youtube" rel="noopener"><img src="https://i.imgur.com/eEX1qmB.png"></a></td>
 
-Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3 Mercedes Benz SLK 200 r170 year 1997 and later customization project
+Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3X Mercedes Benz SLK 200 r170 year 1997 and later customization project
 ======
 
 💵 💴 FINANCIAL BUDGET 💶 DUE DILLIGENCE 💷 💳
 ======
-I do hope to cover all possible functions with Comma 3. At first we will try to focus on financial budget and time schedule estimates, because we assume this side as project is also relevant and many owners will consider return of investments. Obviously many will consider if investing ammount of money which attacks price of the vehicle is worth it with current market prices, if it is better to wait for price drop and development, or if get newer car with no or very little customization needed is better option.
+I do hope to cover all possible functions with Comma 3X. At first we will try to focus on financial budget and time schedule estimates, because we assume this side as project is also relevant and many owners will consider return of investments. Obviously many will consider if investing ammount of money which attacks price of the vehicle is worth it with current market prices, if it is better to wait for price drop and development, or if get newer car with no or very little customization needed is better option.
+
+Comma 3X				1150 USD
+Comma 3X Harness			  99 USD
+Electric power steering unit (EPS)	 500 USD
+Steering angle sensor			   ? USD
+Electronic brake booster (aka ibooster)	 500 USD
+Throttle control			   ? USD
+Radar sensor				   ? USD
+Custom welding				 300 USD
+Custom wiring				 300 USD
+
+
 
 🕐🕢⌚ PLANNING 🕰️ AND ⏲️ TIME SCHEDULE ⏰⏳⌛📅📆🗓️ 
 ======
