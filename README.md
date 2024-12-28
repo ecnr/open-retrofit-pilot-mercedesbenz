@@ -1,7 +1,11 @@
 <td><a href="https://m.youtube.com/watch?v=L1u6AkSpR98&t=2s" title="Youtube" rel="noopener"><img src="https://i.imgur.com/eEX1qmB.png"></a></td>
 
-Welcome to openpilot 0.7.1_OC_WATER💧
+Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3 Mercedes Benz SLK 200 r170 year 1997 and later customization project
 ======
+
+I do hope to cover all possible functions with Comma 3. At first I will try to focus on financial budget and time schedule estimates, because I assume this side as project is also relevant and many owners will consider return of investments. Obviously many will consider if investing ammount of money which attacks price of the vehickle is worth it with current market prices, if it is better to wait for price drop, or if get newer car with no customization needed is better option.
+======
+
 
 [openpilot](http://github.com/commaai/openpilot) is an open source driving agent. Currently, it performs the functions of Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS).  It's about on par with Tesla Autopilot.
 This OLD_CAR Branch brings openpilot to almost every car. Follow this readme to get an overview how it works.
