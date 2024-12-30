@@ -1,6 +1,6 @@
 <td><a href="https://m.youtube.com/watch?v=L1u6AkSpR98&t=2s" title="Youtube" rel="noopener"><img src="https://i.imgur.com/eEX1qmB.png"></a></td>
 
-Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3X Mercedes Benz SLK 200 r170 year 1997 and later customization project
+Welcome to openpilot 0.7.1_OC_WATER💧 Comma 3X Mercedes Benz SLK 200 with Automatic Transmission, r170 year 1997 and later customization project
 ======
 
 💵 💴 FINANCIAL BUDGET 💶 DUE DILLIGENCE 💷 💳
@@ -24,7 +24,7 @@ I do hope to cover all possible functions with Comma 3X. At first we will try to
 
 🕐🕢⌚ PLANNING 🕰️ AND ⏲️ TIME SCHEDULE ⏰⏳⌛📅📆🗓️ 
 ======
-If we have reached this section, we have the budget agreement and now we are curious about how long this construction party can last. How fast we can get all parts together, how long time take the manual work itself, what kinds of expertise we are going to need and how long we are going to check the result.
+If we have reached this section, we have the budget agreement and now we are curious about how long this construction party can last. How fast we can get all parts together, how long time take the manual work itself, what kinds of expertise we are going to need and how long we are going to test the result.
 
 🕺 INTRODUCTION 🕺
 ======
